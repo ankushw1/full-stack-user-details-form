@@ -32,7 +32,8 @@ const UserForm = () => {
     }
 
     try {
-      await axios.post('http://localhost:8081/form', {
+      const apiUrl = process.env.NODE_ENV === 'production' ? '/form' : 'http://localhost:8081/form';
+      await axios.post(apiUrl, {
         name,
         dob,
         email,

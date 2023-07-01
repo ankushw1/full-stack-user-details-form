@@ -10,10 +10,11 @@ const FormList = () => {
 
   const fetchFormData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/form');
+      const apiUrl = process.env.NODE_ENV === 'production' ? '/form' : 'http://localhost:8081/form';
+      const response = await axios.get(apiUrl);
       setFormData(response.data);
     } catch (error) {
-      console.error('Error occured:', error);
+      console.error('Error occurred:', error);
     }
   };
 
