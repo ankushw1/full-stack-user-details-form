@@ -25,6 +25,12 @@ const UserForm = () => {
       return;
     }
 
+    const phoneRegex = /^\d{10}$/;
+    if (!phone.match(phoneRegex)) {
+      setError('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
     try {
       await axios.post('http://localhost:8081/form', {
         name,
@@ -57,11 +63,11 @@ const UserForm = () => {
         })
         .catch((error) => {
           console.error('Error sending email:', error);
-          alert('Error sending email. Please try again later.');
+          alert('Error sending in email');
         });
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setError('An error occurred while submitting the form.');
+      console.error('Error occured form:', error);
+      setError('error occurred');
     }
   };
 

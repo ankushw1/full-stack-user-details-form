@@ -13,7 +13,7 @@ const FormList = () => {
       const response = await axios.get('http://localhost:8081/form');
       setFormData(response.data);
     } catch (error) {
-      console.error('Error fetching form data:', error);
+      console.error('Error occured:', error);
     }
   };
 

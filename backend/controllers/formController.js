@@ -7,7 +7,7 @@ exports.submitForm = (req, res) => {
 
   db.query(sql, values, (err, result) => {
     if (err) {
-      console.error('Error inserting data into the database:', err);
+      console.error('Error inserting data:', err);
       return res.status(500).json('Error inserting data');
     }
 
@@ -20,7 +20,7 @@ exports.getFormData = (req, res) => {
 
   db.query(sql, (err, results) => {
     if (err) {
-      console.error('Error retrieving data from the database:', err);
+      console.error('Error retrieving data :', err);
       return res.status(500).json('Error retrieving data');
     }
 
