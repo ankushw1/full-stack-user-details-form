@@ -68,6 +68,33 @@ li {
   padding: 10px;
 }
 
+.form-list {
+  margin: 20px;
+}
+
+.form-list h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.form-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.form-list li {
+  margin-bottom: 10px;
+}
+
+.form-list strong {
+  font-weight: bold;
+}
+
+.form-list p {
+  font-style: italic;
+}
+
+
 /* Media Queries */
 @media (max-width: 768px) {
   .container {

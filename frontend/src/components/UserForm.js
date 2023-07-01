@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import emailjs from 'emailjs-com';
+import { useNavigate } from 'react-router-dom';
 
 const UserForm = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
   const [email, setEmail] = useState('');
@@ -11,7 +14,7 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !dob || !email) {
+    if (!name || !dob || !email || !phone) {
       setError('Please fill in all required fields.');
       return;
     }
@@ -23,14 +26,40 @@ const UserForm = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/form', { name, dob, email, phone });
-      setName('');
-      setDob('');
-      setEmail('');
-      setPhone('');
-      setError('');
+      await axios.post('http://localhost:5000/form', {
+        name,
+        dob,
+        email,
+        phone,
+      });
+
+     
+      const templateParams = {
+        to_email: email,
+        from_name: 'Max Techies',
+        from_email: 'info@maxtechies.com',
+      };
+
+
+      emailjs
+        .send('service_q52zpkb', 'template_6gb8bek', templateParams, 'Tmj4Q_O-3hyHdBJz6')
+        .then((response) => {
+          console.log('Email sent successfully!', response.text);
+          setName('');
+          setDob('');
+          setEmail('');
+          setPhone('');
+          setError('');
+          console.log('Form submitted successfully');
+          navigate('/form-list')
+        })
+        .catch((error) => {
+          console.error('Error sending email:', error);
+          alert('Error sending email. Please try again later.');
+        });
     } catch (error) {
       console.error('Error submitting form:', error);
+      setError('An error occurred while submitting the form.');
     }
   };
 
@@ -39,7 +68,10 @@ const UserForm = () => {
     const birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
       age--;
     }
     return age;
@@ -81,6 +113,7 @@ const UserForm = () => {
           type="tel"
           id="phone"
           value={phone}
+          required
           onChange={(e) => setPhone(e.target.value)}
         />
 
