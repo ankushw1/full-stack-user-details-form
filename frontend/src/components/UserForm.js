@@ -26,7 +26,7 @@ const UserForm = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/form', {
+      await axios.post('http://localhost:8081/form', {
         name,
         dob,
         email,
@@ -36,6 +36,7 @@ const UserForm = () => {
      
       const templateParams = {
         to_email: email,
+        to_name:name,
         from_name: 'Max Techies',
         from_email: 'info@maxtechies.com',
       };
@@ -51,6 +52,7 @@ const UserForm = () => {
           setPhone('');
           setError('');
           console.log('Form submitted successfully');
+          alert('Form submitted successfully !!!')
           navigate('/form-list')
         })
         .catch((error) => {
